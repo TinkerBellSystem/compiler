@@ -5,7 +5,7 @@ prepare_kernel:
 prepare_pathexaminer2:
 	git clone https://github.com/CamFlow/PathExaminer2
 
-prepare_autotools:
+prepare_tools:
 	sudo apt-get -y install ruby
 	sudo apt-get -y install uncrustify
 	sudo apt-get -y install bison
@@ -17,6 +17,7 @@ prepare_autotools:
 	sudo apt-get -y install libelf-dev
 	sudo apt-get -y install autoconf automake
 	sudo apt-get -y install libtool
+	sudo apt-get -y install sqlite3 libsqlite3-dev
 
 prepare_gcc:
 	wget http://mirrors.kernel.org/ubuntu/pool/universe/g/gcc-4.8/gcc-4.8-base_4.8.5-4ubuntu2_amd64.deb
@@ -58,17 +59,25 @@ prepare_yices:
 	sudo apt-get -y install yices2
 	sudo apt-get -y install yices2-dev
 
-prepare_config:
-	cd PathExaminer2/ && autoreconf --install
+prepare_callgraph:
+	git clone https://github.com/CamFlow/callgraphs.git
 
-prepare: prepare_kernel prepare_pathexaminer2 prepare_autotools prepare_gcc prepare_gpp prepare_m4 prepare_yices prepare_config
+prepare: prepare_kernel prepare_pathexaminer2 prepare_callgraph prepare_tools prepare_gcc prepare_gpp prepare_m4 prepare_yices
 
 config_pathexaminer2:
+	cd PathExaminer2/ && autoreconf --install
 	cd PathExaminer2/ && ./configure
-	cd PathExaminer2/ && make
+	cd PathExaminer2/ && $(MAKE)
 	cd PathExaminer2/ && sudo make install
+
+config_callgraph:
+	cd callgraphs/ && autoreconf --install
+	cd callgraphs/ && sed -i "s/PKG_CHECK_MODULES(SQLITE3,sqlite3)/# PKG_CHECK_MODULES(SQLITE3,sqlite3)/" configure
+	cd callgraphs/ && ./configure
+	cd callgraphs/ && $(MAKE)
+	cd callgraphs/ && sudo make install
 
 config_kernel:
 	cd camflow-dev/scripts && $(MAKE) config_kernel
 
-config: config_pathexaminer2 config_kernel
+config: config_pathexaminer2 config_callgraph config_kernel
