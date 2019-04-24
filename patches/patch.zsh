@@ -2,7 +2,7 @@
 
 curdir=$(pwd)
 repo=/home/vagrant/lsm/camflow-dev/build/linux-stable
-base_commit=56a6222ef4bd7a2bc14553f4c3b0782ff63990e7
+base_commit=c33791d1ceb7652d15a1582091edf38adc4e1164
 
 pushd $repo
 while read -A line; do
