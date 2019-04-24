@@ -77,6 +77,16 @@ config_callgraph:
 	cd callgraphs/ && $(MAKE)
 	cd callgraphs/ && sudo make install
 
+config_sqlite:
+	cd build/linux-stable && touch create_db.sh
+	cd build/linux-stable && echo '#!/bin/bash' >> create_db.sh
+	cd build/linux-stable && echo 'cat <<EOF | sqlite3 db.sqlite' >> create_db.sh
+	cd build/linux-stable && echo 'CREATE TABLE functions (Id INTEGER PRIMARY KEY, Name TEXT, File TEXT, Line INTEGER, Global INTEGER);' >> create_db.sh
+	cd build/linux-stable && echo 'CREATE TABLE calls (Caller INTEGER, Callee INTEGER, PRIMARY KEY (Caller,Callee));' >> create_db.sh
+	cd build/linux-stable && echo 'EOF' >> create_db.sh
+	cd build/linux-stable && chmod u+x create_db.sh
+	cd build/linux-stable && ./create_db.sh
+
 config_kernel:
 	cd camflow-dev/scripts && $(MAKE) config_kernel
 	rm -rf build && mv camflow-dev/build .
