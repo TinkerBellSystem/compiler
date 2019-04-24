@@ -17,6 +17,7 @@ prepare_tools:
 	sudo apt-get -y install libelf-dev
 	sudo apt-get -y install autoconf automake
 	sudo apt-get -y install libtool
+	sudo apt-get -y install pkg-config
 	sudo apt-get -y install sqlite3 libsqlite3-dev
 
 prepare_gcc:
@@ -48,6 +49,7 @@ prepare_gcc:
 	sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
 
 prepare_gpp:
+	sudo rm -f /usr/bin/g++
 	sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 
 prepare_m4:
@@ -94,3 +96,7 @@ config_kernel:
 	cd build/linux-stable && rm -rf .git 
 
 config: config_pathexaminer2 config_callgraph config_sqlite
+
+compile:
+	cd build/linux-stable && $(MAKE) CC=gcc HOSTCC=gcc EXTRA_CFLAGS="-fplugin=kayrebt_callgraphs -fplugin-arg-kayrebt_callgraphs-dbfile=db.sqlite"
+
