@@ -3,7 +3,7 @@ prepare_kernel:
 	cd camflow-dev && $(MAKE) prepare_kernel
 
 prepare_pathexaminer2:
-	git clone https://scm.gforge.inria.fr/anonscm/git/kayrebt/PathExaminer2.git
+	git clone https://github.com/CamFlow/PathExaminer2
 
 prepare_autotools:
 	sudo apt-get -y install ruby
