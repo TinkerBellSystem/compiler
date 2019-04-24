@@ -80,4 +80,4 @@ config_callgraph:
 config_kernel:
 	cd camflow-dev/scripts && $(MAKE) config_kernel
 
-config: config_pathexaminer2 config_callgraph config_kernel
+config: config_pathexaminer2 config_callgraph
