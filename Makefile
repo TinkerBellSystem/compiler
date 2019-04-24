@@ -53,7 +53,7 @@ prepare_m4:
 	sudo cp -f -a ./m4/. /usr/share/aclocal
 
 prepare_yices:
-	sudo add-apt-repository ppa:sri-csl/formal-methods
+	sudo add-apt-repository ppa:sri-csl/formal-methods -y
 	sudo apt-get update
 	sudo apt-get -y install yices2
 	sudo apt-get -y install yices2-dev
@@ -71,3 +71,4 @@ config_pathexaminer2:
 config_kernel:
 	cd camflow-dev/scripts && $(MAKE) config_kernel
 
+config: config_pathexaminer2 config_kernel
