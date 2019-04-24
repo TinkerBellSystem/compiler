@@ -1,6 +1,6 @@
 prepare_kernel:
 	git clone https://github.com/CamFlow/camflow-dev.git
-	cd camflow-dev && $(MAKE) prepare_kernel
+	cd camflow-dev && git checkout tinkerbell && $(MAKE) prepare_kernel
 
 prepare_pathexaminer2:
 	git clone https://github.com/CamFlow/PathExaminer2
