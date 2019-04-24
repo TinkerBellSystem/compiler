@@ -79,5 +79,8 @@ config_callgraph:
 
 config_kernel:
 	cd camflow-dev/scripts && $(MAKE) config_kernel
+	rm -rf build && mv camflow-dev/build .
+	cd build && rm -rf information-flow-patch/ && rm -rf pristine/
+	cd build/linux-stable && rm -rf .git 
 
 config: config_pathexaminer2 config_callgraph
