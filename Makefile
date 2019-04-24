@@ -93,4 +93,4 @@ config_kernel:
 	cd build && rm -rf information-flow-patch/ && rm -rf pristine/
 	cd build/linux-stable && rm -rf .git 
 
-config: config_pathexaminer2 config_callgraph
+config: config_pathexaminer2 config_callgraph config_sqlite
