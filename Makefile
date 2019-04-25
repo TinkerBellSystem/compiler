@@ -74,7 +74,6 @@ config_pathexaminer2:
 
 config_callgraph:
 	cd callgraphs/ && autoreconf --install
-	cd callgraphs/ && sed -i "s/PKG_CHECK_MODULES(SQLITE3,sqlite3)/# PKG_CHECK_MODULES(SQLITE3,sqlite3)/" configure
 	cd callgraphs/ && ./configure
 	cd callgraphs/ && $(MAKE)
 	cd callgraphs/ && sudo make install
