@@ -23,3 +23,4 @@ Lastly, we compile the Kernel with the plugin enabled:
 ```
 make compile
 ```
+Compiling kernel is time consuming and it is even slower with our GCC plugin enabled. Please be patient.
