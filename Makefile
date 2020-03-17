@@ -94,7 +94,7 @@ config_kernel:
 	cd build && rm -rf information-flow-patch/ && rm -rf pristine/
 	cd build/linux-stable && rm -rf .git 
 
-config: config_pathexaminer2 config_callgraph config_sqlite
+config: config_pathexaminer2 config_callgraph config_kernel config_sqlite
 
 compile:
 	cd build/linux-stable && $(MAKE) CC=gcc HOSTCC=gcc EXTRA_CFLAGS="-fplugin=kayrebt_callgraphs -fplugin-arg-kayrebt_callgraphs-dbfile=db.sqlite"
