@@ -49,7 +49,7 @@ prepare_yices:
 prepare_callgraph:
 	git clone https://github.com/CamFlow/callgraphs.git
 
-prepare: prepare_kernel prepare_pathexaminer2 prepare_callgraph prepare_gcc prepare_gpp prepare_m4 prepare_yices
+prepare: prepare_pathexaminer2 prepare_callgraph prepare_gcc prepare_gpp prepare_m4 prepare_yices
 
 config_pathexaminer2:
 	cd PathExaminer2/ && autoreconf --install
