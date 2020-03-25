@@ -5,21 +5,6 @@ prepare_kernel:
 prepare_pathexaminer2:
 	git clone https://github.com/CamFlow/PathExaminer2
 
-prepare_tools:
-	sudo apt-get -y install ruby
-	sudo apt-get -y install uncrustify
-	sudo apt-get -y install bison
-	sudo apt-get -y install flex
-	sudo apt-get -y install zsh
-	sudo apt-get -y install libncurses5-dev libncursesw5-dev
-	sudo apt-get -y install bc
-	sudo apt-get -y install libssl-dev
-	sudo apt-get -y install libelf-dev
-	sudo apt-get -y install autoconf automake
-	sudo apt-get -y install libtool
-	sudo apt-get -y install pkg-config
-	sudo apt-get -y install sqlite3 libsqlite3-dev
-
 prepare_gcc:
 	wget http://mirrors.kernel.org/ubuntu/pool/universe/g/gcc-4.8/gcc-4.8-base_4.8.5-4ubuntu2_amd64.deb
 	sudo dpkg -i gcc-4.8-base_4.8.5-4ubuntu2_amd64.deb
@@ -64,7 +49,7 @@ prepare_yices:
 prepare_callgraph:
 	git clone https://github.com/CamFlow/callgraphs.git
 
-prepare: prepare_kernel prepare_pathexaminer2 prepare_callgraph prepare_tools prepare_gcc prepare_gpp prepare_m4 prepare_yices
+prepare: prepare_kernel prepare_pathexaminer2 prepare_callgraph prepare_gcc prepare_gpp prepare_m4 prepare_yices
 
 config_pathexaminer2:
 	cd PathExaminer2/ && autoreconf --install
@@ -92,10 +77,9 @@ config_kernel:
 	cd camflow-dev/scripts && $(MAKE) config_kernel
 	rm -rf build && mv camflow-dev/build .
 	cd build && rm -rf information-flow-patch/ && rm -rf pristine/
-	cd build/linux-stable && rm -rf .git 
+	cd build/linux-stable && rm -rf .git
 
 config: config_pathexaminer2 config_callgraph config_kernel config_sqlite
 
 compile:
 	cd build/linux-stable && $(MAKE) CC=gcc HOSTCC=gcc EXTRA_CFLAGS="-fplugin=kayrebt_callgraphs -fplugin-arg-kayrebt_callgraphs-dbfile=db.sqlite"
-
